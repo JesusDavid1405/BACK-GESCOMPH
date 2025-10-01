@@ -98,4 +98,52 @@ public class ObligationMonthsControllerTests
         var res = await Create().ChangeActiveStatus(6, new WebGESCOMPH.Contracts.Requests.ChangeActiveStatusRequest { Active = true });
         Assert.IsType<NoContentResult>(res);
     }
+
+    [Fact]
+    public async Task GetTotalDay_ReturnsOk()
+    {
+        _svc.Setup(s => s.GetTotalObligationsPaidByDayAsync(It.IsAny<DateTime>()))
+            .ReturnsAsync(1500m);
+
+        var res = await Create().GetTotalDay();
+
+        var ok = Assert.IsType<OkObjectResult>(res);
+        Assert.Equal(1500m, ok.Value);
+    }
+
+    [Fact]
+    public async Task GetTotalMonth_ReturnsOk()
+    {
+        _svc.Setup(s => s.GetTotalObligationsPaidByMonthAsync(It.IsAny<int>(), It.IsAny<int>()))
+            .ReturnsAsync(4500m);
+
+        var res = await Create().GetTotalMonth(2025, 10);
+
+        var ok = Assert.IsType<OkObjectResult>(res);
+        Assert.Equal(4500m, ok.Value);
+    }
+
+    [Fact]
+    public async Task GetTotalDay_ReturnsBadRequest_OnException()
+    {
+        _svc.Setup(s => s.GetTotalObligationsPaidByDayAsync(It.IsAny<DateTime>()))
+            .ThrowsAsync(new Exception("DB Error"));
+
+        var res = await Create().GetTotalDay();
+
+        var bad = Assert.IsType<BadRequestObjectResult>(res);
+        Assert.Equal("Error obteniendo total de obligaciones pagadas por día", bad.Value);
+    }
+
+    [Fact]
+    public async Task GetTotalMonth_ReturnsBadRequest_OnException()
+    {
+        _svc.Setup(s => s.GetTotalObligationsPaidByMonthAsync(It.IsAny<int>(), It.IsAny<int>()))
+            .ThrowsAsync(new Exception("DB Error"));
+
+        var res = await Create().GetTotalMonth(2025, 10);
+
+        var bad = Assert.IsType<BadRequestObjectResult>(res);
+        Assert.Equal("Error obteniendo total de obligaciones pagadas por mes", bad.Value);
+    }
 }

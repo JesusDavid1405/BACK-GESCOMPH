@@ -25,5 +25,22 @@ namespace Data.Services.Business
                          .OrderByDescending(o => o.Year)
                          .ThenByDescending(o => o.Month);
         }
+
+        public async Task<decimal> GetTotalObligationsPaidByDayAsync(DateTime date)
+        {
+            return await _dbSet.AsNoTracking()
+                         .Where(o => o.Status == "PAID"
+                            && o.DueDate.Date == date.Date)
+                         .SumAsync(o => o.TotalAmount);
+        }
+
+        public async Task<decimal> GetTotalObligationsPaidByMonthAsync(int year, int month)
+        {
+            return await _dbSet.AsNoTracking()
+                         .Where(o => o.Status == "PAID"
+                            && o.DueDate.Year == year
+                            && o.DueDate.Month == month)
+                         .SumAsync(o => o.TotalAmount);
+        }
     }
 }

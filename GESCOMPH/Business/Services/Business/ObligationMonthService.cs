@@ -187,7 +187,15 @@ namespace Business.Services.Business
             return decimal.TryParse(raw, NumberStyles.Any, CultureInfo.CurrentCulture, out value);
         }
 
+        public async Task<decimal> GetTotalObligationsPaidByDayAsync(DateTime date)
+        {
+            return await _obligationRepository.GetTotalObligationsPaidByDayAsync(date);
+        }
 
+        public async Task<decimal> GetTotalObligationsPaidByMonthAsync(int year, int month)
+        {
+            return await _obligationRepository.GetTotalObligationsPaidByMonthAsync(year, month);
+        }
 
         protected override Expression<Func<ObligationMonth, string>>[] SearchableFields() =>
         [

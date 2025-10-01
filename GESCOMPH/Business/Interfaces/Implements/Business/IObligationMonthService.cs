@@ -29,5 +29,20 @@ namespace Business.Interfaces.Implements.Business
         /// Marca una obligación como pagada y la bloquea.
         /// </summary>
         Task MarkAsPaidAsync(int id);
+
+        /// <summary>
+        /// Obtiene el total de obligaciones pagadas en un día específico.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        Task<decimal> GetTotalObligationsPaidByDayAsync(DateTime date);
+
+        /// <summary>
+        /// Obtiene el total de obligaciones pagadas en un mes específico.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        Task<decimal> GetTotalObligationsPaidByMonthAsync(int year, int month);
     }
 }
