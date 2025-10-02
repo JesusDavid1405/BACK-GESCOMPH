@@ -98,6 +98,12 @@ namespace WebGESCOMPH.Controllers.Module.Business
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Metodos que se encargan de obtener el total de obligaciones pagadas por día y por mes.
+        /// </summary>
+        /// <returns></returns>
+        /// 
         [HttpGet("TotalDay")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
