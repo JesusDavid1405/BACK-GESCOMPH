@@ -114,14 +114,16 @@ namespace WebGESCOMPH.Controllers.Module.Business
                 return BadRequest("Error obteniendo total de obligaciones pagadas por día");
             }
         }
+
         [HttpGet("TotalMonth")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetTotalMonth(int year, int mont)
+        public async Task<IActionResult> GetTotalMonth()
         {
             try
             {
-                var totalMonth = await _svc.GetTotalObligationsPaidByMonthAsync(year, mont);
+                var today = DateTime.UtcNow; 
+                var totalMonth = await _svc.GetTotalObligationsPaidByMonthAsync(today.Year, today.Month);
                 return Ok(totalMonth);
             }
             catch (Exception ex)

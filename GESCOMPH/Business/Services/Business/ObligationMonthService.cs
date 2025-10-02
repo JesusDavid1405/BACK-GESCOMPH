@@ -80,6 +80,7 @@ namespace Business.Services.Business
             var existing = await _obligationRepository.GetByIdAsync(id)
                 ?? throw new BusinessException($"No existe obligación mensual con Id {id}.");
 
+            existing.PaymentDate = DateTime.UtcNow;
             existing.Status = "PAID";
             existing.Locked = true;
 

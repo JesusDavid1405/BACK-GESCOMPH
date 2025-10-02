@@ -29,18 +29,22 @@ namespace Data.Services.Business
         public async Task<decimal> GetTotalObligationsPaidByDayAsync(DateTime date)
         {
             return await _dbSet.AsNoTracking()
-                         .Where(o => o.Status == "PAID"
-                            && o.DueDate.Date == date.Date)
-                         .SumAsync(o => o.TotalAmount);
+                              .Where(o => o.Status == "PAID"
+                                  && o.PaymentDate.HasValue
+                                  && o.PaymentDate.Value.Date == date.Date)
+                              .SumAsync(o => o.TotalAmount);
         }
 
         public async Task<decimal> GetTotalObligationsPaidByMonthAsync(int year, int month)
         {
+            var start = new DateTime(year, month, 1);
+            var end = start.AddMonths(1);
+
             return await _dbSet.AsNoTracking()
-                         .Where(o => o.Status == "PAID"
-                            && o.DueDate.Year == year
-                            && o.DueDate.Month == month)
-                         .SumAsync(o => o.TotalAmount);
+                .Where(o => o.Status == "PAID"
+                    && o.PaymentDate >= start
+                    && o.PaymentDate < end)
+                .SumAsync(o => o.TotalAmount);
         }
     }
 }

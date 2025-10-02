@@ -6,6 +6,7 @@
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime DueDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public decimal UvtQtyApplied { get; set; }
         public decimal UvtValueApplied { get; set; }
         public decimal VatRateApplied { get; set; }

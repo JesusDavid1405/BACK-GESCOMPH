@@ -30,6 +30,8 @@ namespace WebGESCOMPH.Extensions.RealTime
         {
             endpoints.MapHub<ContractsHub>("/api/hubs/contracts");
             endpoints.MapHub<SecurityHub>("/api/hubs/security");
+            endpoints.MapHub<ObligationHub>("api/hubs/obligations");
+
             return endpoints;
         }
     }
