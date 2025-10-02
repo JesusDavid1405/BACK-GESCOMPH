@@ -65,7 +65,7 @@ namespace WebGESCOMPH.Controllers.Module.Business
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error inesperado al crear contratooooooo");
+                _logger.LogError(ex, "Error inesperado al crear contrat0o00o0oo");
                 return StatusCode(500, new { error = "Error interno del servidor." });
             }
         }
