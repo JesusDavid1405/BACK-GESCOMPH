@@ -188,5 +188,6 @@ namespace WebGESCOMPH.Controllers.Module.Business
             await _hub.Clients.All.SendAsync("contracts:expired", new { at = DateTime.UtcNow }, ct);
             return NoContent();
         }
+        
     }
 }
